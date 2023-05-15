@@ -6,7 +6,7 @@ import Link from "next/link";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="text-2xl text-red-200"> Mic test</div>
+      <div className="text-2xl"> Mic test</div>
     </>
   );
 };
