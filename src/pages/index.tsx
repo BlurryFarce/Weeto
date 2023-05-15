@@ -6,7 +6,15 @@ import Link from "next/link";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="text-2xl"> Mic test</div>
+      <div className="h-screen w-screen flex flex-col justify-center items-center">
+        <div className="text-2xl text-center">Vote your favourite</div>
+        <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
+          <div className="p-2" />
+          <div className="w-16 h-16 bg-blue-600"/>
+          <div className="p-8">Vs</div>
+          <div className="w-16 h-16 bg-blue-600"/> 
+        </div>
+      </div>
     </>
   );
 };
