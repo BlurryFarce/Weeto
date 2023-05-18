@@ -1,7 +1,7 @@
 import * as trpc from "@trpc/server";
-import { z } from 'zod';
-
-
+import { ZodFirstPartyTypeKind, number, z } from 'zod';
+import { getOptionsForVote } from "~/utils/getRandomCharID";
+import { characterByID } from "~/utils/characterByID";
 //import { procedure, router } from '../trpc';
 import { initTRPC } from '@trpc/server';
 import Trpc from "~/pages/api/trpc/[trpc]";
@@ -17,55 +17,16 @@ export const procedure = t.procedure;
 
     
  export const appRouter =  router({
-  characterByID: procedure
-    .input(z.object ({ cid: z.number().optional()}))
-    .query(async ({input}) => {
-        const query = 
-        `query($cid: Int){
-          Character(id: $cid){
-            id
-            favourites
-            name {
-              first
-              middle
-              last
-              full
-              native
-            }
-            gender
-            age
-            image{
-              large
-              medium
-            }
-          }
-      }`;
-      
-        const variables = {
-          cid : input,
-          };
-      
-          const url = 'https://graphql.anilist.co',
-          options = {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json',
-              },
-              body: JSON.stringify({
-                  query: query,
-                  variables: variables
-              })
-          };
-  
-        const data = await fetch(url,options)
-          .then((result) => result.json())
-          .then((result) => {
-            return result.data.Character 
-          }) 
-          return data
+  characters: procedure
+    .query(async () => {
+      const [first, second] = getOptionsForVote()
+
+      const firstCharacter = await characterByID(first)
+      const secondCharacter = await characterByID(second)
+
+      return {firstCharacter : firstCharacter, secondCharacter : secondCharacter}
       })
-});
+    })
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

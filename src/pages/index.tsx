@@ -9,23 +9,32 @@ import Trpc from "./api/trpc/[trpc]";
 
 
 const Home: NextPage = () => {
-
-  const [ids, updateIds] = useState(() =>getOptionsForVote());
-  const [first, second] = ids
-  //useEffect(() => updateIds(ids),[]); 
-  const firstCharacter = trpc.characterByID.useQuery({cid:first})
+  const {data: characterPair,
+          refetch,
+          isLoading,
+        } = trpc.characters.useQuery()
   return (
     <>
       <div className="h-screen w-screen flex flex-col justify-center items-center">
         <div className="text-2xl text-center">Vote your favourite</div>
         <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
           <div className="p-2" />
-          <div className="w-16 h-16 bg-blue-600">
-            <img src={firstCharacter.data?.image.medium}
+          <div className="w-68 h-68 flex flex-col">
+            <img src={characterPair?.firstCharacter?.image.medium}
             className="w-full"/>
+              <div className="text-xl text-center">
+                {characterPair?.firstCharacter?.name.full}
+                </div>
           </div>
           <div className="p-8">Vs</div>
-          <div className="w-16 h-16 bg-blue-600"> {second}</div>
+          <div className="w-68 h-68 flex flex-col">
+          <img src={characterPair?.secondCharacter?.image.medium}
+            className="w-full"/>
+             <div className="text-xl text-center">
+              {characterPair?.secondCharacter?.name.full}
+              </div>
+          </div>
+          <div className="p-2"/>
         </div>
       </div>
     </>
