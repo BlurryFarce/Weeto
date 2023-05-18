@@ -21,8 +21,9 @@ export const procedure = t.procedure;
     .query(async () => {
       const [first, second] = getOptionsForVote()
 
-      const firstCharacter = await characterByID(first)
-      const secondCharacter = await characterByID(second)
+      
+        const firstCharacter = await characterByID(first)
+        const secondCharacter = await characterByID(second)
 
       return {firstCharacter : firstCharacter, secondCharacter : secondCharacter}
       })

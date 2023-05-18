@@ -20,18 +20,18 @@ const Home: NextPage = () => {
         <div className="border rounded p-8 flex justify-between items-center max-w-2xl">
           <div className="p-2" />
           <div className="w-68 h-68 flex flex-col">
-            <img src={characterPair?.firstCharacter?.image.medium}
+            <img src={characterPair?.firstCharacter.image.medium}
             className="w-full"/>
               <div className="text-xl text-center">
-                {characterPair?.firstCharacter?.name.full}
+                {characterPair?.firstCharacter.name.full}
                 </div>
           </div>
           <div className="p-8">Vs</div>
           <div className="w-68 h-68 flex flex-col">
-          <img src={characterPair?.secondCharacter?.image.medium}
+          <img src={characterPair?.secondCharacter.image.medium}
             className="w-full"/>
              <div className="text-xl text-center">
-              {characterPair?.secondCharacter?.name.full}
+              {characterPair?.secondCharacter.name.full}
               </div>
           </div>
           <div className="p-2"/>

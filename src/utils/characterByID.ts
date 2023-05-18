@@ -1,4 +1,4 @@
-export function characterByID(cid : number)
+export function characterByID(cid: any)
 {
 const query = 
         `query($cid: Int){
