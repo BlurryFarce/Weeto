@@ -18,5 +18,8 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images : {
+    domains : ["s4.anilist.co"]
+  }
 };
 export default config;
