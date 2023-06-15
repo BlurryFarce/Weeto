@@ -20,6 +20,7 @@ const config = {
   },
   images : {
     domains : ["s4.anilist.co"]
+
   }
 };
 export default config;

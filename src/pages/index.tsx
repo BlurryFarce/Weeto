@@ -1,14 +1,8 @@
-import styles from "./index.module.css";
 import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState} from "react";
 import { trpc } from "~/utils/trpc";
 import Trpc from "./api/trpc/[trpc]";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
-import { getOptionsForVote } from "~/utils/getRandomCharID";
-import { characterByID } from "~/utils/characterByID";
 
 const btn = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
 
@@ -45,13 +39,13 @@ const Home: NextPage = () => {
               <ChracterListing
               character = {characterPair.firstCharacter}
               vote={() => voteForFav(characterPair.firstCharacter.id)}
-                //disabled={fetchingNext}
+              //disabled={fetchingNext}
               />
               <div className="p-8 italic text-xl">{"or"}</div>
               <ChracterListing
               character = {characterPair.secondCharacter}
               vote={() => voteForFav(characterPair.secondCharacter.id)}
-                //disabled={fetchingNext}
+               // disabled={fetchingNext}
               />
                <div className="p-2"/>
                </div>
@@ -67,30 +61,29 @@ type CharacterFromServer = inferQueryResponse<"characters">["firstCharacter"];
 const ChracterListing: React.FC<{
   character: CharacterFromServer;
   vote: () => void;
-  //disabled: boolean;
+  disabled: boolean;
 }> = (props) => {
   return (
     <div
-     // className={`flex flex-col items-center transition-opacity ${
-      //props.disabled && "opacity-0"
-     // }`}
+      className={`flex flex-col items-center transition-opacity 
+     ${props.disabled && "opacity-0"}`}
       key={props.character.id}
     >
       <div className="text-xl text-center capitalize mt-[-0.5rem]">
         {props.character.name.full}
       </div>
+      
       <Image
-        src={props.character.image.medium}
+        src={props.character.image.large}
         width={256}
         height={256}
-        //layout="fixed"
         alt="fc"
         className="animate-fade-in"
       />
       <button
         className={btn}
         onClick={() => props.vote()}
-      // disabled={props.disabled}
+       disabled={props.disabled}
       >
         Vote
       </button>

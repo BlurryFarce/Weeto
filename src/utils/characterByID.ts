@@ -2,7 +2,7 @@ export function characterByID(cid: any)
 {
 const query = 
         `query($cid: Int){
-          Character(id: $cid){
+          Character(id: $cid) {
             id
             favourites
             name {

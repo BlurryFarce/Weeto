@@ -1,11 +1,12 @@
 import * as trpc from "@trpc/server";
-import { z } from 'zod';
+import { number, z } from 'zod';
 import { getOptionsForVote } from "~/utils/getRandomCharID";
 import { characterByID } from "~/utils/characterByID";
 import { prisma } from "~/backend/utils/prisma";
 //import { procedure, router } from '../trpc';
 import { initTRPC } from '@trpc/server';
 import Trpc from "~/pages/api/trpc/[trpc]";
+import { characterFromKitsu } from "~/utils/characterFromKitsu";
 // Avoid exporting the entire t-object
 // since it's not very descriptive.
 // For instance, the use of a t variable
@@ -29,6 +30,11 @@ export const procedure = t.procedure;
         
         firstCharacter= await characterByID(first)
         secondCharacter = await characterByID(second)
+
+        if(firstCharacter.favourites !>= 200 || secondCharacter.favourites !>= 200){
+          firstCharacter = null
+          secondCharacter = null
+        }
       }
       return {firstCharacter,secondCharacter}
       }),
