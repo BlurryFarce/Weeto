@@ -3,11 +3,11 @@ import Image from "next/image";
 import { trpc } from "~/utils/trpc";
 import Trpc from "./api/trpc/[trpc]";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
+import { any } from "zod";
 
 const btn = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
 
 const Home: NextPage = () => {
-      
   const {data: characterPair,
           refetch,
           isLoading,
@@ -39,13 +39,13 @@ const Home: NextPage = () => {
               <ChracterListing
               character = {characterPair.firstCharacter}
               vote={() => voteForFav(characterPair.firstCharacter.id)}
-              //disabled={fetchingNext}
+              disabled={false}
               />
               <div className="p-8 italic text-xl">{"or"}</div>
               <ChracterListing
               character = {characterPair.secondCharacter}
               vote={() => voteForFav(characterPair.secondCharacter.id)}
-               // disabled={fetchingNext}
+                disabled={false}
               />
                <div className="p-2"/>
                </div>
