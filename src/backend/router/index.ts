@@ -1,5 +1,5 @@
 import * as trpc from "@trpc/server";
-import { number, z } from 'zod';
+import {  z } from 'zod';
 import { getOptionsForVote } from "~/utils/getRandomCharID";
 import { characterByID } from "~/utils/characterByID";
 import { prisma } from "~/backend/utils/prisma";
@@ -20,22 +20,16 @@ export const procedure = t.procedure;
  export const appRouter =  router({
   characters: procedure
     .query(async () => {
+      const [first, second] = getOptionsForVote()as[number , number] ;
 
-      let firstCharacter = null
-      let secondCharacter = null
-      while(firstCharacter == null || secondCharacter == null)
-      {
-      const [first, second] = getOptionsForVote()
+      const bothCharacter = await prisma.character.findMany({
+        where: { id: { in: [first, second] } },
+      });
+
+      if (bothCharacter.length !== 2)
+        throw new Error("Failed to find two characters");
         
-        firstCharacter= await characterByID(first)
-        secondCharacter = await characterByID(second)
-
-        if(firstCharacter.favourites !>= 500 || secondCharacter.favourites !>= 500){
-          firstCharacter = null
-          secondCharacter = null
-        }
-      }
-      const characters : any =  {firstCharacter,secondCharacter}
+      const characters : any =  {firstCharacter: bothCharacter[0], secondCharacter: bothCharacter[1]}
       return characters
       }),
 

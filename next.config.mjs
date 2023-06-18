@@ -19,6 +19,7 @@ const config = {
     defaultLocale: "en",
   },
   images : {
+    loader:"default",
     domains : ["s4.anilist.co"]
 
   }

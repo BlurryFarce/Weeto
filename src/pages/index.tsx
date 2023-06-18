@@ -3,7 +3,7 @@ import Image from "next/image";
 import { trpc } from "~/utils/trpc";
 import Trpc from "./api/trpc/[trpc]";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
-import { any } from "zod";
+
 
 const btn = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
 
@@ -11,8 +11,11 @@ const Home: NextPage = () => {
   const {data: characterPair,
           refetch,
           isLoading,
-        } = trpc.characters.useQuery() 
- 
+        } = trpc.characters.useQuery(undefined,
+          {refetchInterval: false,
+          refetchOnReconnect: false,
+          refetchOnWindowFocus: false})
+
     const voteMutation = trpc.vote.useMutation()
     const voteForFav = (selected : number) =>{
 
@@ -28,7 +31,9 @@ const Home: NextPage = () => {
           votedFor: characterPair?.secondCharacter.id,
           votedAgainst: characterPair?.firstCharacter.id,
         });
-    }}
+    }
+    refetch()
+  }
   return (
     <>
       <div className="h-screen w-screen flex flex-col justify-center items-center">
@@ -70,16 +75,17 @@ const ChracterListing: React.FC<{
       key={props.character.id}
     >
       <div className="text-xl text-center capitalize mt-[-0.5rem]">
-        {props.character.name.full}
+        {props.character.name}
       </div>
       
       <Image
-        src={props.character.image.large}
+        src={props.character.imageUrl}
+        alt="character img"
         width={256}
         height={256}
-        alt="fc"
         className="animate-fade-in"
       />
+       <div className="p-2"/>
       <button
         className={btn}
         onClick={() => props.vote()}

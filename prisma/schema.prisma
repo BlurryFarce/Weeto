@@ -15,6 +15,20 @@ model Vote {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
+  votedFor       Character @relation(name: "votesFor", fields: [votedForId], references: [id])
   votedForId     Int
+  votedAgainst   Character @relation(name: "votesAgainst", fields: [votedAgainstId], references: [id])
   votedAgainstId Int
+
+  @@index([votedForId])
+  @@index([votedAgainstId])
+}
+
+model Character {
+  id Int @id @default(autoincrement())
+  
+  name        String
+  imageUrl    String
+  VoteFor     Vote[] @relation("votesFor")
+  VoteAgainst Vote[] @relation("votesAgainst")
 }

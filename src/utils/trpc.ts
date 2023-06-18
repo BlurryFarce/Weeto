@@ -2,7 +2,7 @@ import { createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '../backend/router';
 import { httpBatchLink } from '@trpc/client';
 
-function getBaseUrl() {
+function getBaseUrl(): string {
     if (typeof window !== 'undefined')
       // browser should use relative path
       return '';
@@ -19,6 +19,15 @@ function getBaseUrl() {
 export const trpc = createTRPCNext<AppRouter>({
     config(opts) {
       return {
+        queryClientConfig: {
+        defaultOptions: {
+        queries: {
+        refetchInterval: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+            },
+          },
+        },
         links: [
           httpBatchLink({
             /**
@@ -39,5 +48,5 @@ export const trpc = createTRPCNext<AppRouter>({
     /**
      * @link https://trpc.io/docs/ssr
      **/
-    ssr: false,
+    ssr: true,
   });
