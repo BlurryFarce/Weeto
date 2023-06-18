@@ -1,6 +1,6 @@
-# Weeto - Vote for you favourite character
+# Weeto - Vote for your favorite character
 
 Created using T3-Stack , Prisma, tRPC
 
-The chracter data is from  AniList API
+The character data is from  AniList API
 
