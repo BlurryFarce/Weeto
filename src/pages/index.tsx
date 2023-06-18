@@ -1,7 +1,9 @@
 import { type NextPage } from "next";
 import Image from "next/image";
+import Head from "next/head";
 import { trpc } from "~/utils/trpc";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
+import Link from "next/link";
 
 
 const btn = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -33,9 +35,14 @@ const Home: NextPage = () => {
     }
     refetch()
   }
+
+  const fetchingNext = voteMutation.isLoading || isLoading;
+ 
   return (
-    <>
-      <div className="h-screen w-screen flex flex-col justify-center items-center">
+      <div className="h-screen w-screen flex flex-col justify-between items-center relative">
+        <Head>
+        <title>Best Character</title>
+      </Head>
         <div className="text-2xl text-center pt-8">Vote your favourite</div>
         <div className="p-8 flex justify-between items-center max-w-2xl flex-col md:flex-row animate-fade-in">
             {characterPair &&(
@@ -43,20 +50,26 @@ const Home: NextPage = () => {
               <ChracterListing
               character = {characterPair.firstCharacter}
               vote={() => voteForFav(characterPair.firstCharacter.id)}
-              disabled={false}
+              disabled={fetchingNext}
               />
               <div className="p-8 italic text-xl">{"or"}</div>
               <ChracterListing
               character = {characterPair.secondCharacter}
               vote={() => voteForFav(characterPair.secondCharacter.id)}
-                disabled={false}
-              />
+                disabled={fetchingNext}
+                />
                <div className="p-2"/>
-               </div>
+              </div>
             )}
+            </div>
+            {!characterPair && <img src="/spinning-circles.svg" className="w-48" />}
+              <div className="w-full text-xl text-center pb-2">
+                <Link href="/results">
+                Results
+                </Link>
           </div>
-          </div>
-    </>
+        </div>
+
   );
 };
 
@@ -88,8 +101,7 @@ const ChracterListing: React.FC<{
       <button
         className={btn}
         onClick={() => props.vote()}
-       disabled={props.disabled}
-      >
+       disabled={props.disabled}>
         Vote
       </button>
     </div>
