@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import Image from "next/image";
 import { trpc } from "~/utils/trpc";
-import Trpc from "./api/trpc/[trpc]";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
 
 

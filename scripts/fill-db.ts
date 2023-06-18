@@ -15,7 +15,7 @@ const doBackfill = async () => {
         }
         ID++
         await delay(1000 * 60 / 90); 
-    }while(ID != 5000) 
+    }while(ID != 10000) 
     console.log("DB Filled")
 };
 
