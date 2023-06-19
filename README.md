@@ -1,6 +1,6 @@
 # Weeto - Vote for your favorite character
 
-Created using T3-Stack , Prisma, tRPC
+# Created using T3-Stack
+Prisma, tRPC, and Planetscale + MySQL
 
-The character data is from  AniList API
-
+The character data used is from AniList API
