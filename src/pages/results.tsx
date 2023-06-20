@@ -22,7 +22,6 @@ const getCharactersInOrder = async () => {
       },
     },
   });
-
 };
 
 type CharacterQueryResult = AsyncReturnType<typeof getCharactersInOrder>;
@@ -69,10 +68,8 @@ const ResultsPage: React.FC<{ character: CharacterQueryResult }> = (props) => {
             <Head>
               <title>Favourite Character Results</title>
             </Head>
-            <h2 className="text-2xl p-4">Results</h2>
-            <div className="flex flex-col w-full max-w-2xl border">
-              <p>Loading...</p>
-            </div>
+            <div className="p-8 flex justify-between items-center max-w-2xl flex-col md:flex-row animate-fade-in"></div>
+            <img src="/spinning-circles.svg" className="w-48" />
           </div>
         );
       }

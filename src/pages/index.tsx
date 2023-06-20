@@ -18,6 +18,7 @@ const Home: NextPage = () => {
           refetchOnWindowFocus: false})
 
     const voteMutation = trpc.vote.useMutation()
+    
     const voteForFav = (selected : number) =>{
 
       if (!characterPair) return; 
@@ -41,9 +42,9 @@ const Home: NextPage = () => {
   return (
       <div className="h-screen w-screen flex flex-col justify-between items-center relative">
         <Head>
-        <title>Best Character</title>
+        <title>Weeto</title>
       </Head>
-        <div className="text-2xl text-center pt-8">Vote your favourite</div>
+        <div className="text-2xl text-center pt-8">Vote for your favourite character</div>
         <div className="p-8 flex justify-between items-center max-w-2xl flex-col md:flex-row animate-fade-in">
             {characterPair &&(
               <div className="p-8 flex justify-between items-center max-w-2xl flex-col md:flex-row animate-fade-in">
@@ -61,15 +62,14 @@ const Home: NextPage = () => {
                <div className="p-2"/>
               </div>
             )}
-            </div>
             {!characterPair && <img src="/spinning-circles.svg" className="w-48" />}
-              <div className="w-full text-xl text-center pb-2">
+          </div>
+            <div className="w-full text-xl text-center pb-2">
                 <Link href="/results">
                 Results
                 </Link>
           </div>
         </div>
-
   );
 };
 
